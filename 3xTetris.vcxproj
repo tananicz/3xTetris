@@ -76,6 +76,11 @@
     <ClCompile Include="Win\Win3D\src\Win3DGameHelper.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DGraphicsHelper.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
