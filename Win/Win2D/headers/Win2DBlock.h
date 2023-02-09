@@ -1,7 +1,7 @@
 #ifndef WIN_2D_BLOCK_H
 #define WIN_2D_BLOCK_H
 
-#include "../../Console2D/headers/TextBlock.h"
+#include "../../../Console2D/headers/TextBlock.h"
 
 namespace Win2D
 {

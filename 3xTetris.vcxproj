@@ -36,13 +36,21 @@
     <ClInclude Include="Console2D\headers\TextBlock.h" />
     <ClInclude Include="Console2D\headers\TextBoard.h" />
     <ClInclude Include="Console2D\headers\UserAction2D.h" />
-    <ClInclude Include="Win2D\headers\Win2DAction.h" />
-    <ClInclude Include="Win2D\headers\Win2DActionEnum.h" />
-    <ClInclude Include="Win2D\headers\Win2DActionListener.h" />
-    <ClInclude Include="Win2D\headers\Win2DGameFactory.h" />
-    <ClInclude Include="Win2D\headers\Win2DGameHelper.h" />
-    <ClInclude Include="Win2D\headers\Win2DGraphicsHelper.h" />
-    <ClInclude Include="Win2D\headers\Win2DBlock.h" />
+    <ClInclude Include="Win\headers\AbstractWinGameHelper.h" />
+    <ClInclude Include="Win\headers\AbstractWinGraphicsHelper.h" />
+    <ClInclude Include="Win\Win2D\headers\Win2DAction.h" />
+    <ClInclude Include="Win\Win2D\headers\Win2DActionEnum.h" />
+    <ClInclude Include="Win\Win2D\headers\Win2DActionListener.h" />
+    <ClInclude Include="Win\Win2D\headers\Win2DGameFactory.h" />
+    <ClInclude Include="Win\Win2D\headers\Win2DGameHelper.h" />
+    <ClInclude Include="Win\Win2D\headers\Win2DGraphicsHelper.h" />
+    <ClInclude Include="Win\Win2D\headers\Win2DBlock.h" />
+    <ClInclude Include="Win\Win3D\headers\Win3DAction.h" />
+    <ClInclude Include="Win\Win3D\headers\Win3DActionEnum.h" />
+    <ClInclude Include="Win\Win3D\headers\Win3DActionListener.h" />
+    <ClInclude Include="Win\Win3D\headers\Win3DGameFactory.h" />
+    <ClInclude Include="Win\Win3D\headers\Win3DGameHelper.h" />
+    <ClInclude Include="Win\Win3D\headers\Win3DGraphicsHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console2D\src\ActionListener2D.cpp" />
@@ -54,12 +62,19 @@
     <ClCompile Include="Console2D\src\TextBlock.cpp" />
     <ClCompile Include="Console2D\src\TextBoard.cpp" />
     <ClCompile Include="Console2D\src\UserAction2D.cpp" />
-    <ClCompile Include="Win2D\src\Win2DAction.cpp" />
-    <ClCompile Include="Win2D\src\Win2DActionListener.cpp" />
-    <ClCompile Include="Win2D\src\Win2DBlock.cpp" />
-    <ClCompile Include="Win2D\src\Win2DGameFactory.cpp" />
-    <ClCompile Include="Win2D\src\Win2DGameHelper.cpp" />
-    <ClCompile Include="Win2D\src\Win2DGraphicsHelper.cpp" />
+    <ClCompile Include="Win\src\AbstractWinGameHelper.cpp" />
+    <ClCompile Include="Win\src\AbstractWinGraphicsHelper.cpp" />
+    <ClCompile Include="Win\Win2D\src\Win2DAction.cpp" />
+    <ClCompile Include="Win\Win2D\src\Win2DActionListener.cpp" />
+    <ClCompile Include="Win\Win2D\src\Win2DBlock.cpp" />
+    <ClCompile Include="Win\Win2D\src\Win2DGameFactory.cpp" />
+    <ClCompile Include="Win\Win2D\src\Win2DGameHelper.cpp" />
+    <ClCompile Include="Win\Win2D\src\Win2DGraphicsHelper.cpp" />
+    <ClCompile Include="Win\Win3D\src\Win3DAction.cpp" />
+    <ClCompile Include="Win\Win3D\src\Win3DActionListener.cpp" />
+    <ClCompile Include="Win\Win3D\src\Win3DGameFactory.cpp" />
+    <ClCompile Include="Win\Win3D\src\Win3DGameHelper.cpp" />
+    <ClCompile Include="Win\Win3D\src\Win3DGraphicsHelper.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

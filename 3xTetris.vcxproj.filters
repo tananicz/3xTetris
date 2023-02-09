@@ -66,25 +66,49 @@
     <ClInclude Include="Console2D\headers\Console2DGameFactory.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Win2D\headers\Win2DGameFactory.h">
+    <ClInclude Include="Win\Win2D\headers\Win2DGameFactory.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Win2D\headers\Win2DGameHelper.h">
+    <ClInclude Include="Win\Win2D\headers\Win2DGameHelper.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Win2D\headers\Win2DActionListener.h">
+    <ClInclude Include="Win\Win2D\headers\Win2DActionListener.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Win2D\headers\Win2DActionEnum.h">
+    <ClInclude Include="Win\Win2D\headers\Win2DActionEnum.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Win2D\headers\Win2DAction.h">
+    <ClInclude Include="Win\Win2D\headers\Win2DAction.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Win2D\headers\Win2DGraphicsHelper.h">
+    <ClInclude Include="Win\Win2D\headers\Win2DGraphicsHelper.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Win2D\headers\Win2DBlock.h">
+    <ClInclude Include="Win\Win2D\headers\Win2DBlock.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\Win3D\headers\Win3DActionEnum.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\Win3D\headers\Win3DAction.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\Win3D\headers\Win3DGameFactory.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\Win3D\headers\Win3DGameHelper.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\headers\AbstractWinGameHelper.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\Win3D\headers\Win3DActionListener.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\Win3D\headers\Win3DGraphicsHelper.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Win\headers\AbstractWinGraphicsHelper.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
@@ -116,22 +140,43 @@
     <ClCompile Include="Console2D\src\Console2DGameFactory.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Win2D\src\Win2DGameFactory.cpp">
+    <ClCompile Include="Win\Win2D\src\Win2DGameFactory.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Win2D\src\Win2DGameHelper.cpp">
+    <ClCompile Include="Win\Win2D\src\Win2DGameHelper.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Win2D\src\Win2DActionListener.cpp">
+    <ClCompile Include="Win\Win2D\src\Win2DActionListener.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Win2D\src\Win2DAction.cpp">
+    <ClCompile Include="Win\Win2D\src\Win2DAction.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Win2D\src\Win2DGraphicsHelper.cpp">
+    <ClCompile Include="Win\Win2D\src\Win2DGraphicsHelper.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Win2D\src\Win2DBlock.cpp">
+    <ClCompile Include="Win\Win2D\src\Win2DBlock.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Win\Win3D\src\Win3DAction.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Win\Win3D\src\Win3DGameFactory.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Win\Win3D\src\Win3DGameHelper.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Win\src\AbstractWinGameHelper.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Win\Win3D\src\Win3DActionListener.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Win\Win3D\src\Win3DGraphicsHelper.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Win\src\AbstractWinGraphicsHelper.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>

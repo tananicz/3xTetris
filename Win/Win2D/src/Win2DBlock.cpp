@@ -2,8 +2,8 @@
 
 #include "../headers/Win2DAction.h"
 #include "../headers/Win2DActionEnum.h"
-#include "../../Console2D/headers/UserAction2D.h"
-#include "../../Console2D/headers/ActionEnum.h"
+#include "../../../Console2D/headers/UserAction2D.h"
+#include "../../../Console2D/headers/ActionEnum.h"
 
 namespace Win2D
 {

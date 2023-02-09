@@ -1,7 +1,7 @@
 #ifndef WIN_2D_GAME_FACTORY_H
 #define WIN_2D_GAME_FACTORY_H
 
-#include "../../Interfaces/IGameFactory.h"
+#include "../../../Interfaces/IGameFactory.h"
 
 namespace Win2D
 {

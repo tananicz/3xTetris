@@ -1,7 +1,7 @@
 #ifndef WIN_2D_ACTION_H
 #define WIN_2D_ACTION_H
 
-#include "../../Interfaces/IAction.h"
+#include "../../../Interfaces/IAction.h"
 #include "../headers/Win2DActionEnum.h"
 
 namespace Win2D

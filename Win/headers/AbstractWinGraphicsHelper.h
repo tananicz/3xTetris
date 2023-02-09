@@ -1,27 +1,23 @@
-#ifndef WIN_2D_GRAPHICS_HELPER_H
-#define WIN_2D_GRAPHICS_HELPER_H
+#ifndef ABSTRACT_WIN_GRAPHICS_HELPER_H
+#define ABSTRACT_WIN_2D_GRAPHICS_HELPER_H
 
-#include "../../Console2D/headers/ColorEnum.h"
 #include <d2d1.h>
 #include <dwrite.h>
 
-using namespace Console2D;
-
-namespace Win2D
+namespace Win
 {
-	class Win2DGraphicsHelper
+	class AbstractWinGraphicsHelper
 	{
 	public:
-		Win2DGraphicsHelper(HWND hwnd);
-		~Win2DGraphicsHelper();
+		AbstractWinGraphicsHelper(HWND hwnd);
+		~AbstractWinGraphicsHelper();
 
 		bool initializeFactories();
 		void beginDraw();
 		void endDraw();
 		void clear(const D2D1_COLOR_F& color);
 		void drawText(const wchar_t* textToDraw, int textLength, int dipSize, int xPos, int yPos, const D2D1_COLOR_F& color);
-		void drawRectangleCustom(int xPos, int yPos, int width, int height, const D2D1_COLOR_F& color, bool outline);
-		void drawSquareColorEnum(int xPos, int yPos, int size, ColorEnum color, bool outline);
+		void drawRectangleCustom(int xPos, int yPos, int width, int height, const D2D1_COLOR_F& fillColor, bool outline, const D2D1_COLOR_F& outlineColor);
 		void drawLine(int xStartPos, int yStartPos, int xEndPos, int yEndPos, const D2D1_COLOR_F& color);
 
 	protected:
@@ -30,13 +26,12 @@ namespace Win2D
 		IDWriteFactory* _writeFactory;
 		ID2D1HwndRenderTarget* _renderTarget;
 		bool _isWindowPainted;
-		template <class T> static void safeRelease(T** ppT);
+		virtual bool initializeCustomResources() = 0;
+		virtual bool checkCustomResources() = 0;
+		virtual void discardCustomResources() = 0;
 
 	private:
-		ID2D1SolidColorBrush* _brushes[6];
 		PAINTSTRUCT _ps;
-		bool checkBrushes();
-		D2D1_COLOR_F translateColorEnum(ColorEnum color);
 		bool initializeResources();
 		void discardResources();
 	};

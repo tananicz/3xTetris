@@ -2,7 +2,7 @@
 
 #include "../headers/Win2DGameHelper.h"
 #include "../headers/Win2DBlock.h"
-#include "../../Console2D/headers/TextBoard.h"
+#include "../../../Console2D/headers/TextBoard.h"
 
 namespace Win2D
 {

@@ -1,5 +1,5 @@
 #include "Interfaces/IGameFactory.h"
-#include "Win2D/headers/Win2DGameFactory.h"
+#include "Win/Win2D/headers/Win2DGameFactory.h"
 #include "Shared/headers/Game.h"
 #include <windows.h>
 

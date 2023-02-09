@@ -1,8 +1,8 @@
 #ifndef WIN_2D_ACTION_LISTENER_H
 #define WIN_2D_ACTION_LISTENER_H
 
-#include "../../Interfaces/IActionListener.h"
-#include "../../Interfaces/IAction.h"
+#include "../../../Interfaces/IActionListener.h"
+#include "../../../Interfaces/IAction.h"
 #include "../headers/Win2DActionEnum.h"
 #include <Windows.h>
 
