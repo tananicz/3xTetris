@@ -62,7 +62,10 @@ namespace Win2D
 		for (size_t i = 0; i < 6; i++)
 		{
 			if (_brushes[i] == nullptr)
+			{
 				result = false;
+				break;
+			}
 		}
 
 		return result;
@@ -85,25 +88,6 @@ namespace Win2D
 			_renderTarget->FillRectangle(rect, _brushes[(int)color]);
 			if (outline)
 				_renderTarget->DrawRectangle(rect, _brushes[0], strokeWidth);
-		}
-	}
-
-	D2D1_COLOR_F Win2DGraphicsHelper::translateColorEnum(ColorEnum color)
-	{
-		switch (color)
-		{
-		case White:
-			return D2D1::ColorF(1.0f, 1.0f, 1.0f);
-		case Red:
-			return D2D1::ColorF(1.0f, 0, 0);
-		case Yellow:
-			return D2D1::ColorF(1.0f, 1.0f, 0);
-		case Green:
-			return D2D1::ColorF(0, 1.0f, 0);
-		case Blue:
-			return D2D1::ColorF(0, 0, 1.0f);
-		default:
-			return D2D1::ColorF(0, 0, 0);
 		}
 	}
 }

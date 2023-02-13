@@ -1,10 +1,12 @@
 #include "../headers/Win3DGameFactory.h"
 
+#include "../headers/Win3DGameHelper.h"
+
 namespace Win3D
 {
 	Win3DGameFactory::Win3DGameFactory()
 	{
-		_gameHelper = nullptr;
+		_gameHelper = new Win3DGameHelper;
 	}
 
 	Win3DGameFactory::~Win3DGameFactory()

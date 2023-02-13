@@ -2,6 +2,7 @@
 #define WIN_3D_GAME_HELPER_H
 
 #include "../../headers/AbstractWinGameHelper.h"
+#include "../headers/Win3DGraphicsHelper.h"
 
 namespace Win3D
 {
@@ -16,7 +17,7 @@ namespace Win3D
         void drawBoard(IBoard* board, IBlock* block, int points);
 
     private:
-        //Win3DGraphicsHelper* _graphicsHelper;
+        Win3DGraphicsHelper* _graphicsHelper;
 
         //AbstractWinGameHelper implementations
         const wchar_t* getWindowClassName();

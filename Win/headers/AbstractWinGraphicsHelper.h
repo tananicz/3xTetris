@@ -1,8 +1,11 @@
 #ifndef ABSTRACT_WIN_GRAPHICS_HELPER_H
 #define ABSTRACT_WIN_2D_GRAPHICS_HELPER_H
 
+#include "../../Console2D/headers/ColorEnum.h"
 #include <d2d1.h>
 #include <dwrite.h>
+
+using namespace Console2D;
 
 namespace Win
 {
@@ -26,6 +29,7 @@ namespace Win
 		IDWriteFactory* _writeFactory;
 		ID2D1HwndRenderTarget* _renderTarget;
 		bool _isWindowPainted;
+		D2D1_COLOR_F translateColorEnum(ColorEnum color);
 		virtual bool initializeCustomResources() = 0;
 		virtual bool checkCustomResources() = 0;
 		virtual void discardCustomResources() = 0;

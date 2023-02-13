@@ -19,13 +19,13 @@ namespace Win2D
 		void drawSquareColorEnum(int xPos, int yPos, int size, ColorEnum color, bool outline);
 
 	protected:
+		//AbstractWinGraphicsHelper implementations
 		bool initializeCustomResources();
 		bool checkCustomResources();
 		void discardCustomResources();
 
 	private:
 		ID2D1SolidColorBrush* _brushes[6];
-		D2D1_COLOR_F translateColorEnum(ColorEnum color);
 	};
 }
 

@@ -245,4 +245,23 @@ namespace Win
 			}
 		}
 	}
+
+	D2D1_COLOR_F AbstractWinGraphicsHelper::translateColorEnum(ColorEnum color)
+	{
+		switch (color)
+		{
+		case White:
+			return D2D1::ColorF(1.0f, 1.0f, 1.0f);
+		case Red:
+			return D2D1::ColorF(1.0f, 0, 0);
+		case Yellow:
+			return D2D1::ColorF(1.0f, 1.0f, 0);
+		case Green:
+			return D2D1::ColorF(0, 1.0f, 0);
+		case Blue:
+			return D2D1::ColorF(0, 0, 1.0f);
+		default:
+			return D2D1::ColorF(0, 0, 0);
+		}
+	}
 }
