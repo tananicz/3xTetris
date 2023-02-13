@@ -15,7 +15,7 @@ namespace Win
 		AbstractWinGraphicsHelper(HWND hwnd);
 		~AbstractWinGraphicsHelper();
 
-		bool initializeFactories();
+		bool initializeFactoriesAndDeviceIndependentResources();
 		void beginDraw();
 		void endDraw();
 		void clear(const D2D1_COLOR_F& color);
@@ -30,14 +30,18 @@ namespace Win
 		ID2D1HwndRenderTarget* _renderTarget;
 		bool _isWindowPainted;
 		D2D1_COLOR_F translateColorEnum(ColorEnum color);
-		virtual bool initializeCustomResources() = 0;
-		virtual bool checkCustomResources() = 0;
-		virtual void discardCustomResources() = 0;
+		virtual bool initializeCustomDeviceDependentResources() = 0;
+		virtual bool checkCustomDeviceDependentResources() = 0;
+		virtual void discardCustomDeviceDependentResources() = 0;
+		virtual bool initializeCustomDeviceIndependentResources() = 0;
+		virtual void discardCustomDeviceIndependentResources() = 0;
 
 	private:
 		PAINTSTRUCT _ps;
-		bool initializeResources();
-		void discardResources();
+		bool initializeDeviceDependentResources();
+		void discardDeviceDependentResources();
+		bool initializeDeviceIndependentResources();
+		void discardDeviceIndependentResources();
 	};
 }
 

@@ -20,9 +20,11 @@ namespace Win2D
 
 	protected:
 		//AbstractWinGraphicsHelper implementations
-		bool initializeCustomResources();
-		bool checkCustomResources();
-		void discardCustomResources();
+		bool initializeCustomDeviceDependentResources();
+		bool checkCustomDeviceDependentResources();
+		void discardCustomDeviceDependentResources();
+		bool initializeCustomDeviceIndependentResources();
+		void discardCustomDeviceIndependentResources();
 
 	private:
 		ID2D1SolidColorBrush* _brushes[6];

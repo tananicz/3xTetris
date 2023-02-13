@@ -22,9 +22,11 @@ namespace Win3D
 
 	protected:
 		//AbstractWinGraphicsHelper implementations
-		bool initializeCustomResources();
-		bool checkCustomResources();
-		void discardCustomResources();
+		bool initializeCustomDeviceDependentResources();
+		bool checkCustomDeviceDependentResources();
+		void discardCustomDeviceDependentResources();
+		bool initializeCustomDeviceIndependentResources();
+		void discardCustomDeviceIndependentResources();
 
 	private:
 		static const int _PADDING_VAL = 30;
@@ -37,6 +39,7 @@ namespace Win3D
 		int _perspectiveDist = -1;
 		ID2D1SolidColorBrush* _fillBrushes[6];
 		ID2D1SolidColorBrush* _shadowBrushes[6];
+		ID2D1PathGeometry* _pathGeometry;
 		D2D_COLOR_F _shadowColors[6];
 		void initShadowColors();
 		Point getDrawingOffset();

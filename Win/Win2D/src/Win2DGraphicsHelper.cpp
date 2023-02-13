@@ -13,10 +13,10 @@ namespace Win2D
 
 	Win2DGraphicsHelper::~Win2DGraphicsHelper()
 	{
-		discardCustomResources();
+		discardCustomDeviceDependentResources();
 	}
 
-	bool Win2DGraphicsHelper::initializeCustomResources()
+	bool Win2DGraphicsHelper::initializeCustomDeviceDependentResources()
 	{
 		int resourcesSucceeded = 0;
 		HRESULT hr;
@@ -38,12 +38,12 @@ namespace Win2D
 		}
 		else
 		{
-			discardCustomResources();
+			discardCustomDeviceDependentResources();
 			return true;
 		}
 	}
 
-	void Win2DGraphicsHelper::discardCustomResources()
+	void Win2DGraphicsHelper::discardCustomDeviceDependentResources()
 	{
 		for (size_t i = 0; i < 6; i++)
 		{
@@ -55,7 +55,7 @@ namespace Win2D
 		}
 	}
 
-	bool Win2DGraphicsHelper::checkCustomResources()
+	bool Win2DGraphicsHelper::checkCustomDeviceDependentResources()
 	{
 		bool result = true;
 
@@ -69,6 +69,16 @@ namespace Win2D
 		}
 
 		return result;
+	}
+
+	bool Win2DGraphicsHelper::initializeCustomDeviceIndependentResources()
+	{
+		return true;
+	}
+
+	void Win2DGraphicsHelper::discardCustomDeviceIndependentResources()
+	{
+		//do nothing
 	}
 
 	void Win2DGraphicsHelper::drawSquareColorEnum(int xPos, int yPos, int size, ColorEnum color, bool outline)

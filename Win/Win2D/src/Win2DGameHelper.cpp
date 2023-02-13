@@ -31,7 +31,7 @@ namespace Win2D
 		{
 			_graphicsHelper = new Win2DGraphicsHelper(_windowHandle);
 
-			if (_graphicsHelper->initializeFactories())
+			if (_graphicsHelper->initializeFactoriesAndDeviceIndependentResources())
 			{
 				_actionListener = new Win2DActionListener(_windowHandle);
 				ShowWindow(_windowHandle, nCmdShow);

@@ -8,6 +8,8 @@ namespace Win3D
 {
 	Win3DGraphicsHelper::Win3DGraphicsHelper(HWND hwnd) : AbstractWinGraphicsHelper(hwnd)
 	{
+		_pathGeometry = nullptr;
+
 		for (size_t i = 0; i < 6; i++)
 		{
 			_fillBrushes[i] = nullptr;
@@ -19,7 +21,8 @@ namespace Win3D
 
 	Win3DGraphicsHelper::~Win3DGraphicsHelper()
 	{
-		discardCustomResources();
+		discardCustomDeviceIndependentResources();
+		discardCustomDeviceDependentResources();
 	}
 
 	void Win3DGraphicsHelper::initShadowColors()
@@ -125,7 +128,7 @@ namespace Win3D
 		return result;
 	}
 
-	bool Win3DGraphicsHelper::initializeCustomResources()
+	bool Win3DGraphicsHelper::initializeCustomDeviceDependentResources()
 	{
 		HRESULT hr;
 		int resourcesSucceeded = 0;
@@ -147,12 +150,12 @@ namespace Win3D
 		}
 		else
 		{
-			discardCustomResources();
+			discardCustomDeviceDependentResources();
 			return false;
 		}
 	}
 
-	bool Win3DGraphicsHelper::checkCustomResources()
+	bool Win3DGraphicsHelper::checkCustomDeviceDependentResources()
 	{
 		bool result = true;
 
@@ -168,7 +171,7 @@ namespace Win3D
 		return result;
 	}
 
-	void Win3DGraphicsHelper::discardCustomResources()
+	void Win3DGraphicsHelper::discardCustomDeviceDependentResources()
 	{
 		for (size_t i = 0; i < 6; i++)
 		{
@@ -183,6 +186,29 @@ namespace Win3D
 				_shadowBrushes[i]->Release();
 				_shadowBrushes[i] = nullptr;
 			}
+		}
+	}
+
+	bool Win3DGraphicsHelper::initializeCustomDeviceIndependentResources()
+	{
+		HRESULT hr = _direct2DFactory->CreatePathGeometry(&_pathGeometry);
+
+		if (SUCCEEDED(hr))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	void Win3DGraphicsHelper::discardCustomDeviceIndependentResources()
+	{
+		if (_pathGeometry != nullptr)
+		{
+			_pathGeometry->Release();
+			_pathGeometry = nullptr;
 		}
 	}
 }

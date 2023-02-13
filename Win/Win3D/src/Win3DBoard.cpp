@@ -29,7 +29,7 @@ namespace Win3D
 
 	int Win3DBoard::collectRows()
 	{
-
+		return 0;
 	}
 
 	int Win3DBoard::getWellSideSize()

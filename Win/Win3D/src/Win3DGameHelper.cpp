@@ -29,7 +29,7 @@ namespace Win3D
 		{
 			_graphicsHelper = new Win3DGraphicsHelper(_windowHandle);
 
-			if (_graphicsHelper->initializeFactories())
+			if (_graphicsHelper->initializeFactoriesAndDeviceIndependentResources())
 			{
 				_actionListener = new Win3DActionListener(_windowHandle);
 				ShowWindow(_windowHandle, nCmdShow);

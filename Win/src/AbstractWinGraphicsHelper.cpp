@@ -34,9 +34,11 @@ namespace Win
 			_renderTarget->Release();
 			_renderTarget = nullptr;
 		}
+
+		discardDeviceIndependentResources();
 	}
 
-	bool AbstractWinGraphicsHelper::initializeFactories()
+	bool AbstractWinGraphicsHelper::initializeFactoriesAndDeviceIndependentResources()
 	{
 		if (_direct2DFactory == nullptr && _writeFactory == nullptr && !_isWindowPainted)
 		{
@@ -46,7 +48,24 @@ namespace Win
 				hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(_writeFactory), reinterpret_cast<IUnknown**>(&_writeFactory));
 				if (SUCCEEDED(hr))
 				{
-					return true;
+					bool deviceIndependentResourcesInitResult = initializeDeviceIndependentResources();
+
+					if (deviceIndependentResourcesInitResult)
+					{
+						return true;
+					}
+					else
+					{
+						_direct2DFactory->Release();
+						_direct2DFactory = nullptr;
+
+						_writeFactory->Release();
+						_writeFactory = nullptr;
+
+						discardDeviceIndependentResources();
+
+						return false;
+					}
 				}
 				else
 				{
@@ -63,12 +82,12 @@ namespace Win
 			return false;
 	}
 
-	bool AbstractWinGraphicsHelper::initializeResources()
+	bool AbstractWinGraphicsHelper::initializeDeviceDependentResources()
 	{
 		//we don't check for _direct2DFactory != null here
 		//we assume that if we're at this point of the program, initializeFactories must have returned true at it's beginning in main.cpp
 
-		bool customResourcesCheck = checkCustomResources();
+		bool customResourcesCheck = checkCustomDeviceDependentResources();
 
 		if (_renderTarget && customResourcesCheck)
 		{
@@ -100,26 +119,26 @@ namespace Win
 				}
 				else
 				{
-					if (initializeCustomResources())
+					if (initializeCustomDeviceDependentResources())
 					{
 						return true;
 					}
 					else
 					{
-						discardResources();
+						discardDeviceDependentResources();
 						return false;
 					}
 				}
 			}
 			else
 			{
-				discardResources();
+				discardDeviceDependentResources();
 				return false;
 			}
 		}
 	}
 
-	void AbstractWinGraphicsHelper::discardResources()
+	void AbstractWinGraphicsHelper::discardDeviceDependentResources()
 	{
 		if (_renderTarget != nullptr)
 		{
@@ -127,12 +146,23 @@ namespace Win
 			_renderTarget = nullptr;
 		}
 
-		discardCustomResources();
+		discardCustomDeviceDependentResources();
+	}
+
+	bool AbstractWinGraphicsHelper::initializeDeviceIndependentResources()
+	{
+		return initializeCustomDeviceIndependentResources();
+	}
+
+	void AbstractWinGraphicsHelper::discardDeviceIndependentResources()
+	{
+		//do nothing here, as we don't have any DI resources belonging solely to AbstractWinGraphicsHelper class
+		//deleting any DI resources belonging to subclass must be implemented inside that subclass' discardCustomDeviceIndependentResources(), which is called from it's destructor
 	}
 
 	void AbstractWinGraphicsHelper::beginDraw()
 	{
-		if (!_isWindowPainted && initializeResources())
+		if (!_isWindowPainted && initializeDeviceDependentResources())
 		{
 			_isWindowPainted = true;
 			BeginPaint(_hwnd, &_ps);
@@ -150,7 +180,7 @@ namespace Win
 			if (hr == D2DERR_RECREATE_TARGET)
 			{
 				//we discard resources, next time the window will be painted they'll be created inside beginDraw()
-				discardResources();
+				discardDeviceDependentResources();
 			}
 
 			EndPaint(_hwnd, &_ps);
