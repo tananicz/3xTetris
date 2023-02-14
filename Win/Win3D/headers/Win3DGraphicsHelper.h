@@ -38,10 +38,12 @@ namespace Win3D
 		int _perspectiveDist = -1;
 		ID2D1SolidColorBrush* _fillBrushes[6];
 		ID2D1SolidColorBrush* _shadowBrushes[6];
-		ID2D1PathGeometry* _pathGeometry;
+		ID2D1PathGeometry* _pathGeometryFront;
+		ID2D1PathGeometry* _pathGeometrySide;
 		D2D_COLOR_F _shadowColors[6];
 		void initShadowColors();
 		Point getDrawingOffset();
+		int determineCubeSides(int row, int col, int cubesPerSide);
 		void discardCustomDeviceIndependentResources();
 	};
 }

@@ -1,5 +1,7 @@
 #include "../headers/Win3DGraphicsHelper.h"
 
+#include "../headers/Point3D.h"
+#include "../headers/CubeSideEnum.h"
 #include <cmath>
 
 using namespace Console2D;
@@ -8,7 +10,8 @@ namespace Win3D
 {
 	Win3DGraphicsHelper::Win3DGraphicsHelper(HWND hwnd) : AbstractWinGraphicsHelper(hwnd)
 	{
-		_pathGeometry = nullptr;
+		_pathGeometryFront = nullptr;
+		_pathGeometrySide = nullptr;
 
 		for (size_t i = 0; i < 6; i++)
 		{
@@ -59,14 +62,87 @@ namespace Win3D
 
 			_cubeSideSize = floor(screenSizeTmp / wellSideSize);
 			_safeDrawingAreaSideSize = _cubeSideSize * wellSideSize;
-			int bottomSize = (int)(_WELL_BOTTOM_PERCENTAGE * _safeDrawingAreaSideSize);
+			int bottomSize = (int)(((float) _WELL_BOTTOM_PERCENTAGE / 100) * _safeDrawingAreaSideSize);
 			_perspectiveDist = (wellDepth * _cubeSideSize * bottomSize) / (_safeDrawingAreaSideSize - bottomSize);
 		}
 	}
 
 	void Win3DGraphicsHelper::drawCube(int col, int row, int depth, ColorEnum color)
 	{
-		//TODO
+		ID2D1GeometrySink* sinkFront = nullptr;
+		ID2D1GeometrySink* sinkSide = nullptr;
+
+		HRESULT hr = _pathGeometryFront->Open(&sinkFront);
+
+		if (SUCCEEDED(hr))
+		{
+			hr = _pathGeometrySide->Open(&sinkSide);
+
+			if (SUCCEEDED(hr))
+			{
+				Point3D coords[4];
+
+				coords[0].x = (-1 * _safeDrawingAreaSideSize / 2) + (col * _cubeSideSize);
+				coords[0].y = (_safeDrawingAreaSideSize / 2) - (row * _cubeSideSize);
+				coords[0].z = depth * _cubeSideSize;
+				coords[1].x = coords[0].x + _cubeSideSize;
+				coords[1].y = coords[0].y;
+				coords[1].z = coords[0].z;
+				coords[2].x = coords[1].x;
+				coords[2].y = coords[1].y - _cubeSideSize;
+				coords[2].z = coords[0].z;
+				coords[3].x = coords[0].x;
+				coords[3].y = coords[2].y;
+				coords[3].z = coords[0].z;
+
+				int cubeSides = determineCubeSides(col, row, _safeDrawingAreaSideSize / _cubeSideSize);
+				Point p1;
+
+				for (struct { int i; CubeSideEnum side; } k = { 0, Top }; k.i < 4; k.i++, k.side = (CubeSideEnum)(k.side << 1))
+				{
+					if (k.i == 0)
+					{
+						p1 = get2DCoords(coords[0].x, coords[0].y, coords[0].z);
+						sinkFront->BeginFigure(D2D1::Point2F((float)p1.x, (float)p1.y), D2D1_FIGURE_BEGIN_FILLED);
+					}
+
+					int j = (k.i < 3) ? k.i + 1 : 0;
+					p1 = get2DCoords(coords[j].x, coords[j].y, coords[j].z);
+					sinkFront->AddLine(D2D1::Point2F((float)p1.x, (float)p1.y));
+
+					if (k.side & cubeSides)
+					{
+						Point p0 = get2DCoords(coords[k.i].x, coords[k.i].y, coords[k.i].z);
+						Point p2 = get2DCoords(coords[j].x, coords[j].y, coords[j].z + _cubeSideSize);
+						Point p3 = get2DCoords(coords[k.i].x, coords[k.i].y, coords[k.i].z + _cubeSideSize);
+
+						sinkSide->BeginFigure(D2D1::Point2F((float)p0.x, (float)p0.y), D2D1_FIGURE_BEGIN_FILLED);
+						sinkSide->AddLine(D2D1::Point2F((float)p1.x, (float)p1.y));
+						sinkSide->AddLine(D2D1::Point2F((float)p2.x, (float)p2.y));
+						sinkSide->AddLine(D2D1::Point2F((float)p3.x, (float)p3.y));
+						sinkSide->AddLine(D2D1::Point2F((float)p0.x, (float)p0.y));
+						sinkSide->EndFigure(D2D1_FIGURE_END_CLOSED);
+					}
+				}
+				sinkFront->EndFigure(D2D1_FIGURE_END_CLOSED);
+				sinkFront->Close();
+				_renderTarget->DrawGeometry(_pathGeometryFront, _fillBrushes[0], 1);
+				_renderTarget->FillGeometry(_pathGeometryFront, _fillBrushes[(int)color]);
+
+				sinkSide->Close();
+				UINT32 figCount;
+				_pathGeometrySide->GetFigureCount(&figCount);
+				if (figCount > 0)
+				{
+					_renderTarget->DrawGeometry(_pathGeometrySide, _shadowBrushes[0], 1);
+					_renderTarget->FillGeometry(_pathGeometrySide, _shadowBrushes[(int)color]);
+				}
+
+				sinkSide->Release();
+			}
+
+			sinkFront->Release();
+		}
 	}
 
 	void Win3DGraphicsHelper::draw3DWalls(int wellDepth)
@@ -124,6 +200,46 @@ namespace Win3D
 
 		result.x = _drawingAreaWidth / 2;
 		result.y = _drawingAreaHeight / 2;
+
+		return result;
+	}
+
+	int Win3DGraphicsHelper::determineCubeSides(int row, int col, int cubesPerSide)
+	{
+		int result = 0;
+
+		//it will be easier to operate on row and col from range [1..cubesPerSide]
+		row++; 
+		col++;
+
+		if (cubesPerSide % 2 == 0)
+		{
+			int middle = cubesPerSide / 2;
+
+			if (row < middle)
+				result |= CubeSideEnum::Right;
+			else if (row > middle + 1)
+				result |= CubeSideEnum::Left;
+
+			if (col < middle)
+				result |= CubeSideEnum::Bottom;
+			else if (col > middle + 1)
+				result |= CubeSideEnum::Top;
+		}
+		else
+		{
+			int middle = cubesPerSide / 2 + 1;
+
+			if (row < middle)
+				result |= CubeSideEnum::Right;
+			else if (row > middle)
+				result |= CubeSideEnum::Left;
+
+			if (col < middle)
+				result |= CubeSideEnum::Bottom;
+			else if (col > middle)
+				result |= CubeSideEnum::Top;
+		}
 
 		return result;
 	}
@@ -193,11 +309,23 @@ namespace Win3D
 	{
 		//all or nothing approach here - we either create all resources and return true or release all d2d interfaces in case of any failure and return false
 
-		HRESULT hr = _direct2DFactory->CreatePathGeometry(&_pathGeometry);
+		HRESULT hr = _direct2DFactory->CreatePathGeometry(&_pathGeometryFront);
 
 		if (SUCCEEDED(hr))
 		{
-			return true;
+			hr = _direct2DFactory->CreatePathGeometry(&_pathGeometrySide);
+
+			if (SUCCEEDED(hr))
+			{
+				return true;
+			}
+			else
+			{
+				_pathGeometryFront->Release();
+				_pathGeometryFront = nullptr;
+
+				return false;
+			}
 		}
 		else
 		{
@@ -209,10 +337,16 @@ namespace Win3D
 
 	void Win3DGraphicsHelper::discardCustomDeviceIndependentResources()
 	{
-		if (_pathGeometry != nullptr)
+		if (_pathGeometryFront != nullptr)
 		{
-			_pathGeometry->Release();
-			_pathGeometry = nullptr;
+			_pathGeometryFront->Release();
+			_pathGeometryFront = nullptr;
+		}
+
+		if (_pathGeometrySide != nullptr)
+		{
+			_pathGeometrySide->Release();
+			_pathGeometrySide = nullptr;
 		}
 	}
 }

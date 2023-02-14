@@ -50,17 +50,20 @@ namespace Win3D
 
 	void Win3DGameHelper::paintWelcomeScreen()
 	{
+		_graphicsHelper->setupPaintConfig(7, 12);
+
 		_graphicsHelper->beginDraw();
+		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::Black));
+		_graphicsHelper->draw3DWalls(12);
+		_graphicsHelper->drawCube(1, 6, 0, Yellow);
+		_graphicsHelper->endDraw();
+
+		/*_graphicsHelper->beginDraw();
 		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::White));
 		_graphicsHelper->drawText(L"Welcome to 3D Tetris game!", 26, 30, 50, 50, D2D1::ColorF(D2D1::ColorF::Red));
-
-		/*_graphicsHelper->drawText(L"Use left and right arrow keys to move the block horizontally", 60, 13, 50, 150, D2D1::ColorF(D2D1::ColorF::Black));
-		_graphicsHelper->drawText(L"Use down arrow key to push the block downwards", 46, 13, 50, 175, D2D1::ColorF(D2D1::ColorF::Black));
-		_graphicsHelper->drawText(L"Use A and Z keys to rotate the block", 36, 13, 50, 200, D2D1::ColorF(D2D1::ColorF::Black));*/
-
 		_graphicsHelper->drawText(L"S - start new game", 18, 20, 50, 300, D2D1::ColorF(D2D1::ColorF::Black));
 		_graphicsHelper->drawText(L"Esc - exit game", 15, 20, 50, 330, D2D1::ColorF(D2D1::ColorF::Black));
-		_graphicsHelper->endDraw();
+		_graphicsHelper->endDraw();*/
 	}
 
 	void Win3DGameHelper::paintGameOverScreen()

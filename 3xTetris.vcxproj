@@ -45,6 +45,8 @@
     <ClInclude Include="Win\Win2D\headers\Win2DGameHelper.h" />
     <ClInclude Include="Win\Win2D\headers\Win2DGraphicsHelper.h" />
     <ClInclude Include="Win\Win2D\headers\Win2DBlock.h" />
+    <ClInclude Include="Win\Win3D\headers\CubeSideEnum.h" />
+    <ClInclude Include="Win\Win3D\headers\Point3D.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DAction.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DActionEnum.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DActionListener.h" />

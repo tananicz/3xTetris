@@ -1,6 +1,7 @@
 #include "../headers/Win3DGameFactory.h"
 
 #include "../headers/Win3DGameHelper.h"
+#include "../headers/Win3DBoard.h"
 
 namespace Win3D
 {
@@ -22,7 +23,7 @@ namespace Win3D
 
 	IBoard* Win3DGameFactory::getBoard()
 	{
-		return nullptr;
+		return new Win3DBoard;
 	}
 
 	IBlock* Win3DGameFactory::getBlock()
