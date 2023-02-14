@@ -40,7 +40,7 @@ namespace Win
 
 	bool AbstractWinGraphicsHelper::initializeFactoriesAndDeviceIndependentResources()
 	{
-		if (_direct2DFactory == nullptr && _writeFactory == nullptr && !_isWindowPainted)
+		if (_direct2DFactory == nullptr && _writeFactory == nullptr)
 		{
 			HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &_direct2DFactory);
 			if (SUCCEEDED(hr))
