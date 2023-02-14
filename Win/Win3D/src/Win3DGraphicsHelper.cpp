@@ -191,6 +191,8 @@ namespace Win3D
 
 	bool Win3DGraphicsHelper::initializeCustomDeviceIndependentResources()
 	{
+		//all or nothing approach here - we either create all resources and return true or release all d2d interfaces in case of any failure and return false
+
 		HRESULT hr = _direct2DFactory->CreatePathGeometry(&_pathGeometry);
 
 		if (SUCCEEDED(hr))
@@ -199,6 +201,8 @@ namespace Win3D
 		}
 		else
 		{
+			//no need to release anything here as _pathGeometry contains null in case of CreatePathGeometry failure
+
 			return false;
 		}
 	}

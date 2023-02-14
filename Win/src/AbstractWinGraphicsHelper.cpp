@@ -35,11 +35,13 @@ namespace Win
 			_renderTarget = nullptr;
 		}
 
-		discardDeviceIndependentResources();
+		//if any device independent resources are created within AbstractWinGraphicsHelper, remember to release them here
 	}
 
-	bool AbstractWinGraphicsHelper::initializeFactoriesAndDeviceIndependentResources()
+	bool AbstractWinGraphicsHelper::initializeFactories()
 	{
+		//all or nothing approach here - we either create both factories and return true or release all d2d interfaces in case of any failure and return false
+
 		if (_direct2DFactory == nullptr && _writeFactory == nullptr)
 		{
 			HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &_direct2DFactory);
@@ -48,24 +50,7 @@ namespace Win
 				hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(_writeFactory), reinterpret_cast<IUnknown**>(&_writeFactory));
 				if (SUCCEEDED(hr))
 				{
-					bool deviceIndependentResourcesInitResult = initializeDeviceIndependentResources();
-
-					if (deviceIndependentResourcesInitResult)
-					{
-						return true;
-					}
-					else
-					{
-						_direct2DFactory->Release();
-						_direct2DFactory = nullptr;
-
-						_writeFactory->Release();
-						_writeFactory = nullptr;
-
-						discardDeviceIndependentResources();
-
-						return false;
-					}
+					return true;
 				}
 				else
 				{
@@ -80,6 +65,15 @@ namespace Win
 		}
 		else
 			return false;
+	}
+
+	bool AbstractWinGraphicsHelper::initializeDeviceIndependentResources()
+	{
+		//all or nothing approach here - we either create all resources and return true or release all d2d interfaces in case of any failure and return false
+
+		//if any device independent resources are created within AbstractWinGraphicsHelper, place the code here
+
+		return initializeCustomDeviceIndependentResources();
 	}
 
 	bool AbstractWinGraphicsHelper::initializeDeviceDependentResources()
@@ -147,17 +141,6 @@ namespace Win
 		}
 
 		discardCustomDeviceDependentResources();
-	}
-
-	bool AbstractWinGraphicsHelper::initializeDeviceIndependentResources()
-	{
-		return initializeCustomDeviceIndependentResources();
-	}
-
-	void AbstractWinGraphicsHelper::discardDeviceIndependentResources()
-	{
-		//do nothing here, as we don't have any DI resources belonging solely to AbstractWinGraphicsHelper class
-		//deleting any DI resources belonging to subclass must be implemented inside that subclass' discardCustomDeviceIndependentResources(), which is called from it's destructor
 	}
 
 	void AbstractWinGraphicsHelper::beginDraw()

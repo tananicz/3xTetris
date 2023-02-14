@@ -21,12 +21,13 @@ namespace Win3D
 		Point get2DCoords(int x, int y, int z);
 
 	protected:
+		void discardCustomDeviceIndependentResources();
+
 		//AbstractWinGraphicsHelper implementations
 		bool initializeCustomDeviceDependentResources();
 		bool checkCustomDeviceDependentResources();
 		void discardCustomDeviceDependentResources();
 		bool initializeCustomDeviceIndependentResources();
-		void discardCustomDeviceIndependentResources();
 
 	private:
 		static const int _PADDING_VAL = 30;

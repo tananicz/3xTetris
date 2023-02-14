@@ -29,7 +29,7 @@ namespace Win3D
 		{
 			_graphicsHelper = new Win3DGraphicsHelper(_windowHandle);
 
-			if (_graphicsHelper->initializeFactoriesAndDeviceIndependentResources())
+			if (_graphicsHelper->initializeFactories() && _graphicsHelper->initializeDeviceIndependentResources())
 			{
 				_actionListener = new Win3DActionListener(_windowHandle);
 				ShowWindow(_windowHandle, nCmdShow);
@@ -38,6 +38,8 @@ namespace Win3D
 			}
 			else
 			{
+				//if initializeFactories() succeeds and initializeDeviceIndependentResources() fails, all the factories are released in Win3DGraphicsHelper destructor
+
 				delete _graphicsHelper;
 				_graphicsHelper = nullptr;
 
