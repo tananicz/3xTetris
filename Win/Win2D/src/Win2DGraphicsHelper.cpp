@@ -76,11 +76,6 @@ namespace Win2D
 		return true;
 	}
 
-	void Win2DGraphicsHelper::discardCustomDeviceIndependentResources()
-	{
-		//do nothing
-	}
-
 	void Win2DGraphicsHelper::drawSquareColorEnum(int xPos, int yPos, int size, ColorEnum color, bool outline)
 	{
 		if (_renderTarget && _isWindowPainted)

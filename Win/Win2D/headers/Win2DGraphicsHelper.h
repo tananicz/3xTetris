@@ -24,7 +24,6 @@ namespace Win2D
 		bool checkCustomDeviceDependentResources();
 		void discardCustomDeviceDependentResources();
 		bool initializeCustomDeviceIndependentResources();
-		void discardCustomDeviceIndependentResources();
 
 	private:
 		ID2D1SolidColorBrush* _brushes[6];

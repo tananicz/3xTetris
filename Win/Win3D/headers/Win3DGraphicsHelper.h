@@ -21,8 +21,6 @@ namespace Win3D
 		Point get2DCoords(int x, int y, int z);
 
 	protected:
-		void discardCustomDeviceIndependentResources();
-
 		//AbstractWinGraphicsHelper implementations
 		bool initializeCustomDeviceDependentResources();
 		bool checkCustomDeviceDependentResources();
@@ -44,6 +42,7 @@ namespace Win3D
 		D2D_COLOR_F _shadowColors[6];
 		void initShadowColors();
 		Point getDrawingOffset();
+		void discardCustomDeviceIndependentResources();
 	};
 }
 
