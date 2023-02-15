@@ -2,6 +2,9 @@
 #define WIN_3D_BOARD_H
 
 #include "../../../Interfaces/IBoard.h"
+#include "../../../Console2D/headers/ColorEnum.h"
+
+using namespace Console2D;
 
 namespace Win3D
 {
@@ -9,7 +12,6 @@ namespace Win3D
 	{
 	public:
 		Win3DBoard();
-		~Win3DBoard();
 
 		int getWellSideSize();
 		int getWellDepth();
@@ -23,6 +25,7 @@ namespace Win3D
 	private:
 		static const int _WELL_SIDE_SIZE = 12;
 		static const int _WELL_DEPTH = 15;
+		ColorEnum _board[_WELL_SIDE_SIZE][_WELL_SIDE_SIZE][_WELL_DEPTH];
 	};
 }
 

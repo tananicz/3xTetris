@@ -23,7 +23,7 @@ namespace Win3D
 		this->z = other.z;
 	}
 
-	void Point3D::MoveBy(const Point3D &offset)
+	void Point3D::moveBy(const Point3D &offset)
 	{
 		this->x += offset.x;
 		this->y += offset.y;
@@ -33,7 +33,7 @@ namespace Win3D
 	Point3D Point3D::operator + (const Point3D& other)
 	{
 		Point3D result(*this);
-		result.MoveBy(other);
+		result.moveBy(other);
 		return result;
 	}
 }

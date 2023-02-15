@@ -50,6 +50,7 @@
     <ClInclude Include="Win\Win3D\headers\Win3DAction.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DActionEnum.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DActionListener.h" />
+    <ClInclude Include="Win\Win3D\headers\Win3DBlock.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DBoard.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DGameFactory.h" />
     <ClInclude Include="Win\Win3D\headers\Win3DGameHelper.h" />
@@ -76,6 +77,7 @@
     <ClCompile Include="Win\Win3D\src\Point3D.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DAction.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DActionListener.cpp" />
+    <ClCompile Include="Win\Win3D\src\Win3DBlock.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DBoard.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DGameFactory.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DGameHelper.cpp" />
