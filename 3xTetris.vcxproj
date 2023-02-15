@@ -73,6 +73,7 @@
     <ClCompile Include="Win\Win2D\src\Win2DGameFactory.cpp" />
     <ClCompile Include="Win\Win2D\src\Win2DGameHelper.cpp" />
     <ClCompile Include="Win\Win2D\src\Win2DGraphicsHelper.cpp" />
+    <ClCompile Include="Win\Win3D\src\Point3D.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DAction.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DActionListener.cpp" />
     <ClCompile Include="Win\Win3D\src\Win3DBoard.cpp" />

@@ -55,7 +55,9 @@ namespace Win3D
 		_graphicsHelper->beginDraw();
 		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::Black));
 		_graphicsHelper->draw3DWalls(12);
-		_graphicsHelper->drawCube(1, 6, 0, Yellow);
+		_graphicsHelper->drawCube(1, 6, 1, Red);
+		_graphicsHelper->drawCube(1, 5, 1, Red);
+		_graphicsHelper->drawCube(1, 6, 0, Red);
 		_graphicsHelper->endDraw();
 
 		/*_graphicsHelper->beginDraw();

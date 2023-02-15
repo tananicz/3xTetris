@@ -2,6 +2,7 @@
 #define WIN_3D_GRAPHICS_HELPER_H
 
 #include "../../headers/AbstractWinGraphicsHelper.h"
+#include "../headers/Point3D.h"
 #include "../../../Console2D/headers/Point.h"
 #include "../../../Console2D/headers/ColorEnum.h"
 
@@ -19,6 +20,7 @@ namespace Win3D
 		void drawCube(int col, int row, int depth, ColorEnum color);
 		void draw3DWalls(int wellDepth);
 		Point get2DCoords(int x, int y, int z);
+		Point get2DCoords(Point3D point3D);
 
 	protected:
 		//AbstractWinGraphicsHelper implementations
@@ -38,8 +40,6 @@ namespace Win3D
 		int _perspectiveDist = -1;
 		ID2D1SolidColorBrush* _fillBrushes[6];
 		ID2D1SolidColorBrush* _shadowBrushes[6];
-		ID2D1PathGeometry* _pathGeometryFront;
-		ID2D1PathGeometry* _pathGeometrySide;
 		D2D_COLOR_F _shadowColors[6];
 		void initShadowColors();
 		Point getDrawingOffset();

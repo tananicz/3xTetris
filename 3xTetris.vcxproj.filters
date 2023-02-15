@@ -191,6 +191,9 @@
     <ClCompile Include="Win\Win3D\src\Win3DBoard.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="Win\Win3D\src\Point3D.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
