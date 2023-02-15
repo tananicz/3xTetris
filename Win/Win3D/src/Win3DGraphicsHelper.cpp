@@ -10,6 +10,8 @@ namespace Win3D
 {
 	Win3DGraphicsHelper::Win3DGraphicsHelper(HWND hwnd) : AbstractWinGraphicsHelper(hwnd)
 	{
+		_drawingOffset = {};
+
 		for (size_t i = 0; i < 6; i++)
 		{
 			_fillBrushes[i] = nullptr;
@@ -35,16 +37,6 @@ namespace Win3D
 		_shadowColors[5].r = 0; _shadowColors[5].g = 0; _shadowColors[5].b = 0.76f; _shadowColors[5].a = 1;
 	}
 
-	int Win3DGraphicsHelper::getSafeDrawingAreaSideSize()
-	{
-		return _safeDrawingAreaSideSize;
-	}
-
-	int Win3DGraphicsHelper::getCubeSideSize()
-	{
-		return _cubeSideSize;
-	}
-
 	void Win3DGraphicsHelper::setupPaintConfig(int wellSideSize, int wellDepth)
 	{
 		if (_drawingAreaHeight == -1 || _drawingAreaWidth == -1 || _cubeSideSize == -1 || _safeDrawingAreaSideSize == -1 || _perspectiveDist == -1)
@@ -57,10 +49,13 @@ namespace Win3D
 
 			int screenSizeTmp = min(_drawingAreaWidth, _drawingAreaHeight) - _PADDING_VAL;
 
-			_cubeSideSize = floor(screenSizeTmp / wellSideSize);
+			_cubeSideSize = (int) floor(screenSizeTmp / wellSideSize);
 			_safeDrawingAreaSideSize = _cubeSideSize * wellSideSize;
 			int bottomSize = (int)(((float) _WELL_BOTTOM_PERCENTAGE / 100) * _safeDrawingAreaSideSize);
 			_perspectiveDist = (wellDepth * _cubeSideSize * bottomSize) / (_safeDrawingAreaSideSize - bottomSize);
+
+			_drawingOffset.x = _drawingAreaWidth / 2;
+			_drawingOffset.y = _drawingAreaHeight / 2;
 		}
 	}
 
@@ -151,8 +146,8 @@ namespace Win3D
 
 	void Win3DGraphicsHelper::draw3DWalls(int wellDepth)
 	{
-		int drawAreaSideSize = getSafeDrawingAreaSideSize();
-		int cubeSideSize = getCubeSideSize();
+		int drawAreaSideSize = _safeDrawingAreaSideSize;
+		int cubeSideSize = _cubeSideSize;
 		D2D1::ColorF color = D2D1::ColorF(D2D1::ColorF::Red);
 
 		//preparing points
@@ -188,12 +183,12 @@ namespace Win3D
 		Point result;
 		float factor = (float) _perspectiveDist / (_perspectiveDist + z);
 
-		result.x = factor * x;
-		result.y = factor * y;
+		result.x = (int)(factor * x);
+		result.y = (int)(factor * y);
 
 		//transformations to fit within window:
 		result.y = -1 * result.y;
-		result.moveBy(getDrawingOffset());
+		result.moveBy(_drawingOffset);
 
 		return result;
 	}
@@ -201,16 +196,6 @@ namespace Win3D
 	Point Win3DGraphicsHelper::get2DCoords(Point3D point3D)
 	{
 		return get2DCoords(point3D.x, point3D.y, point3D.z);
-	}
-
-	Point Win3DGraphicsHelper::getDrawingOffset()
-	{
-		Point result;
-
-		result.x = _drawingAreaWidth / 2;
-		result.y = _drawingAreaHeight / 2;
-
-		return result;
 	}
 
 	int Win3DGraphicsHelper::determineCubeSides(int row, int col, int cubesPerSide)

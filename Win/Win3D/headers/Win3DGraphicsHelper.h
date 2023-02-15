@@ -14,8 +14,6 @@ namespace Win3D
 		Win3DGraphicsHelper(HWND hwnd);
 		~Win3DGraphicsHelper();
 
-		int getSafeDrawingAreaSideSize();
-		int getCubeSideSize();
 		void setupPaintConfig(int wellSideSize, int wellDepth);
 		void drawCube(int col, int row, int depth, ColorEnum color);
 		void draw3DWalls(int wellDepth);
@@ -38,11 +36,11 @@ namespace Win3D
 		int _cubeSideSize = -1;
 		int _safeDrawingAreaSideSize = -1;
 		int _perspectiveDist = -1;
+		Point _drawingOffset;
 		ID2D1SolidColorBrush* _fillBrushes[6];
 		ID2D1SolidColorBrush* _shadowBrushes[6];
 		D2D_COLOR_F _shadowColors[6];
 		void initShadowColors();
-		Point getDrawingOffset();
 		int determineCubeSides(int row, int col, int cubesPerSide);
 		void discardCustomDeviceIndependentResources();
 	};
