@@ -88,12 +88,12 @@ namespace Win3D
 				{
 					if (k.i == 0)
 					{
-						p1 = get2DCoords(coords[0].x, coords[0].y, coords[0].z);
+						p1 = get2DCoords(coords[0]);
 						sinkFront->BeginFigure(D2D1::Point2F((float)p1.x, (float)p1.y), D2D1_FIGURE_BEGIN_FILLED);
 					}
 
 					int j = (k.i < 3) ? k.i + 1 : 0;
-					p1 = get2DCoords(coords[j].x, coords[j].y, coords[j].z);
+					p1 = get2DCoords(coords[j]);
 					sinkFront->AddLine(D2D1::Point2F((float)p1.x, (float)p1.y));
 
 					if (k.side & cubeSides)
@@ -146,20 +146,18 @@ namespace Win3D
 
 	void Win3DGraphicsHelper::draw3DWalls(int wellDepth)
 	{
-		int drawAreaSideSize = _safeDrawingAreaSideSize;
-		int cubeSideSize = _cubeSideSize;
 		D2D1::ColorF color = D2D1::ColorF(D2D1::ColorF::Red);
 
 		//preparing points
-		Point p1 = get2DCoords(-1 * drawAreaSideSize / 2, drawAreaSideSize / 2, 0);
-		Point p2 = get2DCoords(drawAreaSideSize / 2, drawAreaSideSize / 2, 0);
-		Point p3 = get2DCoords(drawAreaSideSize / 2, -1 * drawAreaSideSize / 2, 0);
-		Point p4 = get2DCoords(-1 * drawAreaSideSize / 2, -1 * drawAreaSideSize / 2, 0);
+		Point p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, 0);
+		Point p2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, 0);
+		Point p3 = get2DCoords(_safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, 0);
+		Point p4 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, 0);
 
-		Point pp1 = get2DCoords(-1 * drawAreaSideSize / 2, drawAreaSideSize / 2, cubeSideSize * wellDepth);
-		Point pp2 = get2DCoords(drawAreaSideSize / 2, drawAreaSideSize / 2, cubeSideSize * wellDepth);
-		Point pp3 = get2DCoords(drawAreaSideSize / 2, -1 * drawAreaSideSize / 2, cubeSideSize * wellDepth);
-		Point pp4 = get2DCoords(-1 * drawAreaSideSize / 2, -1 * drawAreaSideSize / 2, cubeSideSize * wellDepth);
+		Point pp1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
+		Point pp2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
+		Point pp3 = get2DCoords(_safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
+		Point pp4 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
 
 		//proper drawing
 		drawLine(p1.x, p1.y, p2.x, p2.y, color);
@@ -202,7 +200,7 @@ namespace Win3D
 	{
 		int result = 0;
 
-		//it will be easier to operate on row and col from range [1..cubesPerSide]
+		//it will be easier to operate on row and col from range [1 ... cubesPerSide]
 		row++; 
 		col++;
 
