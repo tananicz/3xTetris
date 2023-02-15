@@ -17,8 +17,6 @@ namespace Win3D
 		void setupPaintConfig(int wellSideSize, int wellDepth);
 		void drawCube(int col, int row, int depth, ColorEnum color);
 		void draw3DWalls(int wellDepth);
-		Point get2DCoords(int x, int y, int z);
-		Point get2DCoords(Point3D point3D);
 
 	protected:
 		//AbstractWinGraphicsHelper implementations
@@ -42,6 +40,8 @@ namespace Win3D
 		D2D_COLOR_F _shadowColors[6];
 		void initShadowColors();
 		int determineCubeSides(int row, int col, int cubesPerSide);
+		Point get2DCoords(int x, int y, int z);
+		Point get2DCoords(Point3D point3D);
 		void discardCustomDeviceIndependentResources();
 	};
 }
