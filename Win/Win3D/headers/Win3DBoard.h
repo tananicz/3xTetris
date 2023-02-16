@@ -8,6 +8,8 @@ using namespace Console2D;
 
 namespace Win3D
 {
+	class Win3DBlock;
+
 	class Win3DBoard : public IBoard
 	{
 	public:
@@ -15,6 +17,7 @@ namespace Win3D
 
 		int getWellSideSize();
 		int getWellDepth();
+		bool isCollision(Win3DBlock* block);
 
 		//IBoard implementations
 		IPosition* getStartingPosition();

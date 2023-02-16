@@ -89,25 +89,39 @@ namespace Win3D
 
     bool Win3DBlock::tryMove(Win3DBoard* board, Win3DAction* action)
     {
-        /*Point3D offset;
+        Point3D offset;
 
         switch (action->actionName)
         {
         case MoveRight:
             offset.x = 1;
             offset.y = 0;
+            offset.z = 0;
             break;
         case MoveLeft:
             offset.x = -1;
             offset.y = 0;
+            offset.z = 0;
             break;
         case MoveDown:
             offset.x = 0;
             offset.y = 1;
+            offset.z = 0;
+            break;
+        case MoveUp:
+            offset.x = 0;
+            offset.y = -1;
+            offset.z = 0;
+            break;
+        case PushDown:
+            offset.x = 0;
+            offset.y = 0;
+            offset.z = 1;
             break;
         default:
             offset.x = 0;
             offset.y = 0;
+            offset.z = 0;
             break;
         }
 
@@ -118,6 +132,7 @@ namespace Win3D
         {
             offset.x = -1 * offset.x;
             offset.y = -1 * offset.y;
+            offset.z = -1 * offset.z;
 
             for (int i = 0; i < _cubeCount; i++)
                 _coords[i].moveBy(offset);
@@ -125,12 +140,12 @@ namespace Win3D
             return false;
         }
 
-        return true;*/
+        return true;
     }
 
     bool Win3DBlock::tryRotate(Win3DBoard* board, Win3DAction* action)
     {
-        /*if (action->actionName == RotateLeft || action->actionName == RotateRight)
+        if (action->actionName == RotateXCW || action->actionName == RotateXCCW || action->actionName == RotateYCW || action->actionName == RotateYCCW || action->actionName == RotateZCW || action->actionName == RotateZCCW)
         {
             performRotation(action);
             if (board->isCollision(this))
@@ -142,52 +157,96 @@ namespace Win3D
             return true;
         }
         else
-            return false;*/
+            return false;
     }
 
     void Win3DBlock::performRotation(Win3DAction* action)
     {
-        /*Point3D offset = _coords[_centerBlock];
+        Point3D offset = _coords[_centerBlock];
 
         offset.x = -1 * offset.x;
         offset.y = -1 * offset.y;
+        offset.z = -1 * offset.z;
 
         for (int i = 0; i < _cubeCount; i++)
             _coords[i].moveBy(offset);
 
         for (int i = 0; i < _cubeCount; i++)
         {
-            int tmp = _coords[i].x;
+            int tmp;
 
-            if (action->actionName == RotateLeft)
+            if (action->actionName == RotateXCCW)
             {
-                _coords[i].x = _coords[i].y;
-                _coords[i].y = -1 * tmp;
+                tmp = _coords[i].y;
+                _coords[i].y = _coords[i].z;
+                _coords[i].z = -1 * tmp;
             }
-            else if (action->actionName == RotateRight)
+            else if (action->actionName == RotateXCW)
             {
+                tmp = _coords[i].y;
+                _coords[i].y = -1 * _coords[i].z;
+                _coords[i].z = tmp;
+            }
+            if (action->actionName == RotateYCCW)
+            {
+                tmp = _coords[i].x;
+                _coords[i].x = -1 * _coords[i].z;
+                _coords[i].z = tmp;
+            }
+            else if (action->actionName == RotateYCW)
+            {
+                tmp = _coords[i].x;
+                _coords[i].x = _coords[i].z;
+                _coords[i].z = -1 * tmp;
+            }
+            if (action->actionName == RotateZCCW)
+            {
+                tmp = _coords[i].x;
                 _coords[i].x = -1 * _coords[i].y;
                 _coords[i].y = tmp;
+            }
+            else if (action->actionName == RotateZCW)
+            {
+                tmp = _coords[i].x;
+                _coords[i].x = _coords[i].y;
+                _coords[i].y = -1 * tmp;
             }
         }
 
         offset.x = -1 * offset.x;
         offset.y = -1 * offset.y;
+        offset.z = -1 * offset.z;
 
         for (int i = 0; i < _cubeCount; i++)
-            _coords[i].moveBy(offset);*/
+            _coords[i].moveBy(offset);
     }
 
     void Win3DBlock::reverseRotationAction(Win3DAction* action)
     {
-        /*if (action->actionName == RotateLeft)
+        if (action->actionName == RotateXCW)
         {
-            action->actionName = RotateRight;
+            action->actionName = RotateXCCW;
         }
-        else if (action->actionName == RotateRight)
+        else if (action->actionName == RotateXCCW)
         {
-            action->actionName = RotateLeft;
-        }*/
+            action->actionName = RotateXCW;
+        }
+        else if (action->actionName == RotateYCW)
+        {
+            action->actionName = RotateYCCW;
+        }
+        else if (action->actionName == RotateYCCW)
+        {
+            action->actionName = RotateYCW;
+        }
+        else if (action->actionName == RotateZCW)
+        {
+            action->actionName = RotateZCCW;
+        }
+        else if (action->actionName == RotateZCCW)
+        {
+            action->actionName = RotateZCW;
+        }
     }
 
 	void Win3DBlock::setCoords()

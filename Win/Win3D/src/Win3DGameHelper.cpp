@@ -50,22 +50,12 @@ namespace Win3D
 
 	void Win3DGameHelper::paintWelcomeScreen()
 	{
-		_graphicsHelper->setupPaintConfig(7, 12);
-
 		_graphicsHelper->beginDraw();
-		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::Black));
-		_graphicsHelper->draw3DWalls(12);
-		_graphicsHelper->drawCube(1, 6, 1, Red);
-		_graphicsHelper->drawCube(1, 5, 1, Red);
-		_graphicsHelper->drawCube(1, 6, 0, Red);
-		_graphicsHelper->endDraw();
-
-		/*_graphicsHelper->beginDraw();
 		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::White));
 		_graphicsHelper->drawText(L"Welcome to 3D Tetris game!", 26, 30, 50, 50, D2D1::ColorF(D2D1::ColorF::Red));
 		_graphicsHelper->drawText(L"S - start new game", 18, 20, 50, 300, D2D1::ColorF(D2D1::ColorF::Black));
 		_graphicsHelper->drawText(L"Esc - exit game", 15, 20, 50, 330, D2D1::ColorF(D2D1::ColorF::Black));
-		_graphicsHelper->endDraw();*/
+		_graphicsHelper->endDraw();
 	}
 
 	void Win3DGameHelper::paintGameOverScreen()
@@ -85,6 +75,11 @@ namespace Win3D
 		_graphicsHelper->beginDraw();
 		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::Black));
 		_graphicsHelper->draw3DWalls(win3DBoard->getWellDepth());
+
+		_graphicsHelper->drawCube(1, 6, 1, Red);
+		_graphicsHelper->drawCube(1, 5, 1, Red);
+		_graphicsHelper->drawCube(1, 6, 0, Red);
+
 		_graphicsHelper->endDraw();
 	}
 
