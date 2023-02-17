@@ -281,7 +281,7 @@ namespace Win3D
             _coords[4].x = 0; _coords[4].y = 0; _coords[4].z = 1;
             _coords[5].x = 1; _coords[5].y = 0; _coords[5].z = 1;
             _coords[6].x = 0; _coords[6].y = 1; _coords[6].z = 1;
-            _coords[7].x = 1; _coords[7].y = 7; _coords[7].z = 1;
+            _coords[7].x = 1; _coords[7].y = 1; _coords[7].z = 1;
             break;
         case 3:
             _cubeCount = 4;

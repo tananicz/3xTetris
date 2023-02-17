@@ -11,7 +11,7 @@ namespace Win3D
 		{
 			for (size_t x = 0; x < _WELL_SIDE_SIZE; x++)
 			{
-				for (size_t y = 0; x < _WELL_SIDE_SIZE; y++)
+				for (size_t y = 0; y < _WELL_SIDE_SIZE; y++)
 				{
 					_board[x][y][z] = None;
 				}
@@ -21,13 +21,13 @@ namespace Win3D
 
 	IPosition* Win3DBoard::getStartingPosition()
 	{
-		Point3D returnVal;
+		Point3D* returnVal = new Point3D;
 
-		returnVal.x = _WELL_SIDE_SIZE / 2;
-		returnVal.y = _WELL_SIDE_SIZE / 2;
-		returnVal.z = 0;
+		returnVal->x = _WELL_SIDE_SIZE / 2;
+		returnVal->y = _WELL_SIDE_SIZE / 2;
+		returnVal->z = 0;
 
-		return &returnVal;
+		return returnVal;
 	}
 
 	bool Win3DBoard::canInsertBlock(IBlock* block)
