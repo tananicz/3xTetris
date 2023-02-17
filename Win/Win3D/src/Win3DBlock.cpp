@@ -6,14 +6,14 @@
 
 namespace Win3D
 {
-	Win3DBlock::Win3DBlock()
-	{
-		for (size_t i = 0; i < 10; i++)
-			_coords[i] = Point3D();
+    Win3DBlock::Win3DBlock()
+    {
+        for (size_t i = 0; i < 10; i++)
+            _coords[i] = Point3D();
 
-		_color = (ColorEnum)(rand() % 5 + 1);
-		setCoords();
-	}
+        _color = (ColorEnum)(rand() % 5 + 1);
+        setCoords();
+    }
 
     ColorEnum Win3DBlock::getColor()
     {
@@ -28,6 +28,16 @@ namespace Win3D
     Point3D Win3DBlock::getPositionAt(int i)
     {
         return _coords[i];
+    }
+
+    bool Win3DBlock::hasCoords(Point3D point)
+    {
+        for (int i = 0; i < _cubeCount; i++)
+        {
+            if (_coords[i].x == point.x && _coords[i].y == point.y && _coords[i].z == point.z)
+                return true;
+        }
+        return false;
     }
 
     void Win3DBlock::setInitialPosition(IPosition* position)

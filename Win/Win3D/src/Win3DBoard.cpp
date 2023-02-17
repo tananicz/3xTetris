@@ -83,6 +83,11 @@ namespace Win3D
 					*(boardPtr + j) = *tmpPtr;
 					j--;
 				}
+
+				for (ColorEnum* tmpPtr = boardPtr + j; tmpPtr >= baseBoardPtr; tmpPtr--)
+				{
+					*tmpPtr = None;
+				}
 			}
 		}
 
@@ -116,5 +121,10 @@ namespace Win3D
 				return true;
 		}
 		return false;
+	}
+
+	ColorEnum Win3DBoard::getColorAtBoardPos(Point3D point)
+	{
+		return _board[point.x][point.y][point.z];
 	}
 }

@@ -3,6 +3,7 @@
 
 #include "../../../Interfaces/IBoard.h"
 #include "../../../Console2D/headers/ColorEnum.h"
+#include "../headers/Point3D.h"
 
 using namespace Console2D;
 
@@ -18,6 +19,7 @@ namespace Win3D
 		int getWellSideSize();
 		int getWellDepth();
 		bool isCollision(Win3DBlock* block);
+		ColorEnum getColorAtBoardPos(Point3D point);
 
 		//IBoard implementations
 		IPosition* getStartingPosition();

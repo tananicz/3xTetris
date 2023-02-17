@@ -16,6 +16,7 @@ namespace Win3D
 
 		void setupPaintConfig(int wellSideSize, int wellDepth);
 		void drawCube(int col, int row, int depth, ColorEnum color);
+		void drawCube(Point3D point, ColorEnum color);
 		void draw3DWalls(int wellDepth);
 
 	protected:

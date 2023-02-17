@@ -59,6 +59,11 @@ namespace Win3D
 		}
 	}
 
+	void Win3DGraphicsHelper::drawCube(Point3D point, ColorEnum color)
+	{
+		drawCube(point.x, point.y, point.z, color);
+	}
+
 	void Win3DGraphicsHelper::drawCube(int col, int row, int depth, ColorEnum color)
 	{
 		ID2D1PathGeometry* pathGeometryFront = nullptr;

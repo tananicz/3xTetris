@@ -18,6 +18,7 @@ namespace Win3D
 		ColorEnum getColor();
 		int getBlockSize();
 		Point3D getPositionAt(int i);
+		bool hasCoords(Point3D point);
 
 		//IBlock implementations
 		void setInitialPosition(IPosition* position);

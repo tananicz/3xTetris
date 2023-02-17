@@ -28,6 +28,6 @@ namespace Win3D
 
 	IBlock* Win3DGameFactory::getBlock()
 	{
-		return nullptr;
+		return new Win3DBlock;
 	}
 }

@@ -3,6 +3,8 @@
 
 #include "../../headers/AbstractWinGameHelper.h"
 #include "../headers/Win3DGraphicsHelper.h"
+#include "Win3DBlock.h"
+#include "Win3DBoard.h"
 
 namespace Win3D
 {
@@ -24,6 +26,7 @@ namespace Win3D
         const wchar_t* getWindowTitle();
         void paintWelcomeScreen();
         void paintGameOverScreen();
+        void tryDrawCube(Win3DBlock* block, Win3DBoard* board, Point3D coords);
     };
 }
 
