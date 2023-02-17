@@ -50,43 +50,39 @@ namespace Win3D
 	int Win3DBoard::collectRows()
 	{
 		int rowsCollected = 0;
-
-		ColorEnum* baseBoardPtr = (ColorEnum*)_board;
-		ColorEnum* boardLevelPtr = nullptr;
-		ColorEnum* boardPtr = nullptr;
-		int rowOffset = _WELL_SIDE_SIZE * _WELL_SIDE_SIZE;
 		bool rowComplete;
-		int j;
 
-		for (int i = 0; i < _WELL_DEPTH; i++)
+		for (size_t z = 0; z < _WELL_DEPTH; z++)
 		{
 			rowComplete = true;
-			boardLevelPtr = baseBoardPtr + i * rowOffset;
-			boardPtr = boardLevelPtr;
 
-			for (j = 0; j < rowOffset; j++)
-			{
-				if (*(boardPtr + j) == None)
-				{
-					rowComplete = false;
-					break;
-				}
-			}
-			j--;
+			for (size_t x = 0; x < _WELL_SIDE_SIZE; x++)
+				for (size_t y = 0; y < _WELL_SIDE_SIZE; y++)
+					if (_board[x][y][z] == None)
+					{
+						rowComplete = false;
+					}
 
 			if (rowComplete)
 			{
 				rowsCollected++;
 
-				for (ColorEnum* tmpPtr = boardLevelPtr - 1; tmpPtr >= baseBoardPtr; tmpPtr--)
+				if (z == 0)
 				{
-					*(boardPtr + j) = *tmpPtr;
-					j--;
+					for (size_t x = 0; x < _WELL_SIDE_SIZE; x++)
+						for (size_t y = 0; y < _WELL_SIDE_SIZE; y++)
+							_board[x][y][z] == None;
 				}
-
-				for (ColorEnum* tmpPtr = boardPtr + j; tmpPtr >= baseBoardPtr; tmpPtr--)
+				else
 				{
-					*tmpPtr = None;
+					for (int i = 1; i <= z; i++)
+					{
+						for (size_t x = 0; x < _WELL_SIDE_SIZE; x++)
+							for (size_t y = 0; y < _WELL_SIDE_SIZE; y++)
+							{
+								_board[x][y][z - i + 1] = _board[x][y][z - i];
+							}
+					}
 				}
 			}
 		}

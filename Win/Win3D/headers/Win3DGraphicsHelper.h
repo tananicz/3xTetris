@@ -29,7 +29,7 @@ namespace Win3D
 	private:
 		static const int _PADDING_VAL = 30;
 		static const int _INFO_PANEL_PERCENTAGE = 15;
-		static const int _WELL_BOTTOM_PERCENTAGE = 40;
+		static const int _WELL_BOTTOM_PERCENTAGE = 50;
 		int _drawingAreaWidth = -1;
 		int _drawingAreaHeight = -1;
 		int _cubeSideSize = -1;
