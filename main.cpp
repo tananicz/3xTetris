@@ -7,8 +7,15 @@
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
     IGameFactory* gameFactory = nullptr;
-    //gameFactory = new Win2D::Win2DGameFactory;
-    gameFactory = new Win3D::Win3DGameFactory;
+
+    if (wcscmp(pCmdLine, L"2d") == 0)
+    {
+        gameFactory = new Win2D::Win2DGameFactory;
+    }
+    else
+    {
+        gameFactory = new Win3D::Win3DGameFactory;
+    }
 
     if (gameFactory->getGameHelperSingleton()->initSystemSettings(hInstance, nCmdShow))
     {
