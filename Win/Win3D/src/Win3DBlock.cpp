@@ -2,6 +2,7 @@
 
 #include "../headers/Win3DAction.h"
 #include "../headers/Win3DBoard.h"
+#include <ctime>
 #include <stdlib.h>
 
 namespace Win3D
@@ -11,6 +12,7 @@ namespace Win3D
         for (size_t i = 0; i < 10; i++)
             _coords[i] = Point3D();
 
+        srand(time(NULL));
         _color = (ColorEnum)(rand() % 5 + 1);
         setCoords();
     }

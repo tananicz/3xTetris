@@ -55,6 +55,9 @@ namespace Win3D
 		_graphicsHelper->beginDraw();
 		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::White));
 		_graphicsHelper->drawText(L"Welcome to 3D Tetris game!", 26, 30, 50, 50, D2D1::ColorF(D2D1::ColorF::Red));
+		_graphicsHelper->drawText(L"Use arrow keys to move the block horizontally and vertically", 60, 13, 50, 150, D2D1::ColorF(D2D1::ColorF::Black));
+		_graphicsHelper->drawText(L"Use space to push the block downwards", 37, 13, 50, 175, D2D1::ColorF(D2D1::ColorF::Black));
+		_graphicsHelper->drawText(L"Use 1 and Q, 2 and W, 3 and E keys to rotate the block around X, Y, Z axes respectively", 87, 13, 50, 200, D2D1::ColorF(D2D1::ColorF::Black));
 		_graphicsHelper->drawText(L"S - start new game", 18, 20, 50, 300, D2D1::ColorF(D2D1::ColorF::Black));
 		_graphicsHelper->drawText(L"Esc - exit game", 15, 20, 50, 330, D2D1::ColorF(D2D1::ColorF::Black));
 		_graphicsHelper->endDraw();
@@ -79,7 +82,7 @@ namespace Win3D
 		_graphicsHelper->setupPaintConfig(win3DBoard->getWellSideSize(), win3DBoard->getWellDepth());
 		_graphicsHelper->beginDraw();
 		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::Black));
-		_graphicsHelper->draw3DWalls(win3DBoard->getWellDepth());
+		_graphicsHelper->draw3DWalls(win3DBoard->getWellDepth(), win3DBoard->getWellSideSize());
 
 		Point3D origins[4];
 		Point3D rightVect(1, 0, 0), leftVect(-1, 0, 0), upVect(0, -1, 0), downVect(0, 1, 0);
@@ -145,6 +148,15 @@ namespace Win3D
 				Point3D centerCube(width / 2, width / 2, z);
 				tryDrawCube(win3DBlock, win3DBoard, centerCube);
 			}
+		}
+
+		wchar_t* pointsWcharPtr = intToWcharTPtr(points);
+		if (pointsWcharPtr != nullptr)
+		{
+			RECT infoPanelRect = _graphicsHelper->getInfoPanelRect();
+			_graphicsHelper->drawText(L"Points:", 7, 30, infoPanelRect.right / 2 - 100, infoPanelRect.top + 30, D2D1::ColorF(D2D1::ColorF::Red));
+			_graphicsHelper->drawText(pointsWcharPtr, wcslen(pointsWcharPtr), 30, infoPanelRect.right / 2 + 20, infoPanelRect.top + 30, D2D1::ColorF(D2D1::ColorF::Red));
+			delete[] pointsWcharPtr;
 		}
 
 		_graphicsHelper->endDraw();

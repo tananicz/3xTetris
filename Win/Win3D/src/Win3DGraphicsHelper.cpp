@@ -10,6 +10,7 @@ namespace Win3D
 {
 	Win3DGraphicsHelper::Win3DGraphicsHelper(HWND hwnd) : AbstractWinGraphicsHelper(hwnd)
 	{
+		_infoPanelRect = {};
 		_drawingOffset = {};
 
 		for (size_t i = 0; i < 6; i++)
@@ -56,6 +57,11 @@ namespace Win3D
 
 			_drawingOffset.x = _drawingAreaWidth / 2;
 			_drawingOffset.y = _drawingAreaHeight / 2;
+
+			_infoPanelRect.left = 0;
+			_infoPanelRect.top = _drawingAreaHeight;
+			_infoPanelRect.right = _drawingAreaWidth;
+			_infoPanelRect.bottom = clientRect.bottom;
 		}
 	}
 
@@ -149,22 +155,66 @@ namespace Win3D
 		}
 	}
 
-	void Win3DGraphicsHelper::draw3DWalls(int wellDepth)
+	void Win3DGraphicsHelper::draw3DWalls(int wellDepth, int wellSideSize)
 	{
-		D2D1::ColorF color = D2D1::ColorF(D2D1::ColorF::Red);
+		Point p1, p2, p3, p4;
 
-		//preparing points
-		Point p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, 0);
-		Point p2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, 0);
-		Point p3 = get2DCoords(_safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, 0);
-		Point p4 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, 0);
+		//drawing grid
+		D2D1::ColorF color = D2D1::ColorF(D2D1::ColorF::DarkSlateGray);
+
+		for (size_t z = 1; z < wellDepth; z++)
+		{
+			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, z * _cubeSideSize);
+			p2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, z * _cubeSideSize);
+			p3 = get2DCoords(_safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, z * _cubeSideSize);
+			p4 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, z * _cubeSideSize);
+			drawLine(p1.x, p1.y, p2.x, p2.y, color);
+			drawLine(p2.x, p2.y, p3.x, p3.y, color);
+			drawLine(p3.x, p3.y, p4.x, p4.y, color);
+			drawLine(p4.x, p4.y, p1.x, p1.y, color);
+		}
+
+		for (size_t x = 1; x < wellSideSize; x++)
+		{
+			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, _safeDrawingAreaSideSize / 2, 0);
+			p2 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, _safeDrawingAreaSideSize / 2, wellDepth * _cubeSideSize);
+			p3 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, -1 * _safeDrawingAreaSideSize / 2, 0);
+			p4 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, -1 * _safeDrawingAreaSideSize / 2, wellDepth * _cubeSideSize);
+			drawLine(p1.x, p1.y, p2.x, p2.y, color);
+			drawLine(p3.x, p3.y, p4.x, p4.y, color);
+
+			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, _safeDrawingAreaSideSize / 2, wellDepth * _cubeSideSize);
+			p2 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, -1 * _safeDrawingAreaSideSize / 2, wellDepth * _cubeSideSize);
+			drawLine(p1.x, p1.y, p2.x, p2.y, color);
+		}
+
+		for (size_t y = 1; y < wellSideSize; y++)
+		{
+			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, 0);
+			p2 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, wellDepth * _cubeSideSize);
+			p3 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, 0);
+			p4 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, wellDepth * _cubeSideSize);
+			drawLine(p1.x, p1.y, p2.x, p2.y, color);
+			drawLine(p3.x, p3.y, p4.x, p4.y, color);
+
+			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, wellDepth * _cubeSideSize);
+			p2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, wellDepth * _cubeSideSize);
+			drawLine(p1.x, p1.y, p2.x, p2.y, color);
+		}
+
+		//drawing contours
+		color = D2D1::ColorF(D2D1::ColorF::Red);
+
+		p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, 0);
+		p2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, 0);
+		p3 = get2DCoords(_safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, 0);
+		p4 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, 0);
 
 		Point pp1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
 		Point pp2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
 		Point pp3 = get2DCoords(_safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
 		Point pp4 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, -1 * _safeDrawingAreaSideSize / 2, _cubeSideSize * wellDepth);
 
-		//proper drawing
 		drawLine(p1.x, p1.y, p2.x, p2.y, color);
 		drawLine(p2.x, p2.y, p3.x, p3.y, color);
 		drawLine(p3.x, p3.y, p4.x, p4.y, color);
@@ -199,6 +249,11 @@ namespace Win3D
 	Point Win3DGraphicsHelper::get2DCoords(Point3D point3D)
 	{
 		return get2DCoords(point3D.x, point3D.y, point3D.z);
+	}
+
+	RECT Win3DGraphicsHelper::getInfoPanelRect()
+	{
+		return _infoPanelRect;
 	}
 
 	int Win3DGraphicsHelper::determineCubeSides(int row, int col, int cubesPerSide)

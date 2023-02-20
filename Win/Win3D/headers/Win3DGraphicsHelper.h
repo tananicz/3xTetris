@@ -17,7 +17,8 @@ namespace Win3D
 		void setupPaintConfig(int wellSideSize, int wellDepth);
 		void drawCube(int col, int row, int depth, ColorEnum color);
 		void drawCube(Point3D point, ColorEnum color);
-		void draw3DWalls(int wellDepth);
+		void draw3DWalls(int wellDepth, int wellSideSize);
+		RECT getInfoPanelRect();
 
 	protected:
 		//AbstractWinGraphicsHelper implementations
@@ -29,12 +30,13 @@ namespace Win3D
 	private:
 		static const int _PADDING_VAL = 30;
 		static const int _INFO_PANEL_PERCENTAGE = 15;
-		static const int _WELL_BOTTOM_PERCENTAGE = 50;
+		static const int _WELL_BOTTOM_PERCENTAGE = 40;
 		int _drawingAreaWidth = -1;
 		int _drawingAreaHeight = -1;
 		int _cubeSideSize = -1;
 		int _safeDrawingAreaSideSize = -1;
 		int _perspectiveDist = -1;
+		RECT _infoPanelRect;
 		Point _drawingOffset;
 		ID2D1SolidColorBrush* _fillBrushes[6];
 		ID2D1SolidColorBrush* _shadowBrushes[6];

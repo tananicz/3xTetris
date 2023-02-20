@@ -28,8 +28,8 @@ namespace Win3D
 		int collectRows();
 
 	private:
-		static const int _WELL_SIDE_SIZE = 7;
-		static const int _WELL_DEPTH = 10;
+		static const int _WELL_SIDE_SIZE = 10;
+		static const int _WELL_DEPTH = 15;
 		ColorEnum _board[_WELL_SIDE_SIZE][_WELL_SIDE_SIZE][_WELL_DEPTH];
 	};
 }
