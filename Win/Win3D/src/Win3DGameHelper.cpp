@@ -77,7 +77,6 @@ namespace Win3D
 		Win3DBlock* win3DBlock = static_cast<Win3DBlock*>(block);
 		Win3DBoard* win3DBoard = static_cast<Win3DBoard*>(board);
 		int width = win3DBoard->getWellSideSize();
-		ColorEnum cubeColor;
 
 		_graphicsHelper->setupPaintConfig(win3DBoard->getWellSideSize(), win3DBoard->getWellDepth());
 		_graphicsHelper->beginDraw();

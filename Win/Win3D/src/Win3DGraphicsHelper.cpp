@@ -162,7 +162,7 @@ namespace Win3D
 		//drawing grid
 		D2D1::ColorF color = D2D1::ColorF(D2D1::ColorF::DarkSlateGray);
 
-		for (size_t z = 1; z < wellDepth; z++)
+		for (int z = 1; z < wellDepth; z++)
 		{
 			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, z * _cubeSideSize);
 			p2 = get2DCoords(_safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2, z * _cubeSideSize);
@@ -174,7 +174,7 @@ namespace Win3D
 			drawLine(p4.x, p4.y, p1.x, p1.y, color);
 		}
 
-		for (size_t x = 1; x < wellSideSize; x++)
+		for (int x = 1; x < wellSideSize; x++)
 		{
 			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, _safeDrawingAreaSideSize / 2, 0);
 			p2 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2 + x * _cubeSideSize, _safeDrawingAreaSideSize / 2, wellDepth * _cubeSideSize);
@@ -188,7 +188,7 @@ namespace Win3D
 			drawLine(p1.x, p1.y, p2.x, p2.y, color);
 		}
 
-		for (size_t y = 1; y < wellSideSize; y++)
+		for (int y = 1; y < wellSideSize; y++)
 		{
 			p1 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, 0);
 			p2 = get2DCoords(-1 * _safeDrawingAreaSideSize / 2, _safeDrawingAreaSideSize / 2 - y * _cubeSideSize, wellDepth * _cubeSideSize);

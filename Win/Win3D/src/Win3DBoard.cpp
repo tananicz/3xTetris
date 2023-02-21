@@ -71,7 +71,7 @@ namespace Win3D
 				{
 					for (size_t x = 0; x < _WELL_SIDE_SIZE; x++)
 						for (size_t y = 0; y < _WELL_SIDE_SIZE; y++)
-							_board[x][y][z] == None;
+							_board[x][y][z] = None;
 				}
 				else
 				{
