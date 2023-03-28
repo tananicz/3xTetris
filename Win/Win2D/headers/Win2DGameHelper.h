@@ -23,7 +23,7 @@ namespace Win2D
         static const int _screenOffsetX = 30;
         static const int _screenOffsetY = 30;
         Win2DGraphicsHelper* _graphicsHelper;
-        void paintBorders(int boardWidth, int boardHeight, D2D1::ColorF color);
+        void paintBordersWithGrid(int boardWidth, int boardHeight, D2D1::ColorF borderColor, D2D1::ColorF gridColor);
 
         //AbstractWinGameHelper implementations
         const wchar_t* getWindowClassName();

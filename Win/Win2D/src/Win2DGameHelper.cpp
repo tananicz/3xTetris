@@ -78,7 +78,7 @@ namespace Win2D
 
 		_graphicsHelper->beginDraw();
 		_graphicsHelper->clear(D2D1::ColorF(D2D1::ColorF::Black));
-		paintBorders(txtBoard->getWidth(), txtBoard->getHeight(), D2D1::ColorF(D2D1::ColorF::LightGray));
+		paintBordersWithGrid(txtBoard->getWidth(), txtBoard->getHeight(), D2D1::ColorF(D2D1::ColorF::LightGray), D2D1::ColorF(D2D1::ColorF::DarkOliveGreen));
 
 		wchar_t* pointsWcharPtr = intToWcharTPtr(points);
 		if (pointsWcharPtr != nullptr)
@@ -101,18 +101,31 @@ namespace Win2D
 					color = txtBoard->getColorEnumAtPos((int)x, (int)y);
 				}
 
-				_graphicsHelper->drawSquareColorEnum(((int)x * _cubeWidth) + _screenOffsetX + _cubeWidth, ((int)y * _cubeWidth) + _screenOffsetY, _cubeWidth, color, true);
+				if (color != None)
+					_graphicsHelper->drawSquareColorEnum(((int)x * _cubeWidth) + _screenOffsetX + _cubeWidth, ((int)y * _cubeWidth) + _screenOffsetY, _cubeWidth, color, true);
 			}
 		}
 
 		_graphicsHelper->endDraw();
 	}
 
-	void Win2DGameHelper::paintBorders(int boardWidth, int boardHeight, D2D1::ColorF color)
+	void Win2DGameHelper::paintBordersWithGrid(int boardWidth, int boardHeight, D2D1::ColorF borderColor, D2D1::ColorF gridColor)
 	{
-		_graphicsHelper->drawRectangleCustom(_screenOffsetX, _screenOffsetY, _cubeWidth, (boardHeight + 1) * _cubeWidth, color, false, color);
-		_graphicsHelper->drawRectangleCustom(_screenOffsetX + (1 + boardWidth) * _cubeWidth, _screenOffsetY, _cubeWidth, (boardHeight + 1) * _cubeWidth, color, false, color);
-		_graphicsHelper->drawRectangleCustom(_screenOffsetX + _cubeWidth, _screenOffsetY + boardHeight * _cubeWidth, boardWidth * _cubeWidth, _cubeWidth, color, false, color);
+		_graphicsHelper->drawRectangleCustom(_screenOffsetX, _screenOffsetY, _cubeWidth, (boardHeight + 1) * _cubeWidth, borderColor, false, borderColor);
+		_graphicsHelper->drawRectangleCustom(_screenOffsetX + (1 + boardWidth) * _cubeWidth, _screenOffsetY, _cubeWidth, (boardHeight + 1) * _cubeWidth, borderColor, false, borderColor);
+		_graphicsHelper->drawRectangleCustom(_screenOffsetX + _cubeWidth, _screenOffsetY + boardHeight * _cubeWidth, boardWidth * _cubeWidth, _cubeWidth, borderColor, false, borderColor);
+
+		for (size_t x = 1; x < boardWidth; x++)
+		{
+			int xPos = _screenOffsetX + ((int)x + 1) * _cubeWidth;
+			_graphicsHelper->drawLine(xPos, _screenOffsetY, xPos, _screenOffsetY + boardHeight * _cubeWidth, gridColor);
+		}
+
+		for (size_t y = 0; y < boardHeight; y++)
+		{
+			int yPos = _screenOffsetY + (int)y * _cubeWidth;
+			_graphicsHelper->drawLine(_screenOffsetX + _cubeWidth, yPos, _screenOffsetX + (boardWidth + 1) * _cubeWidth, yPos, gridColor);
+		}
 	}
 
 	const wchar_t* Win2DGameHelper::getWindowClassName()
