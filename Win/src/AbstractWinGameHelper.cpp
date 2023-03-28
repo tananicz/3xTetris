@@ -32,7 +32,7 @@ namespace Win
 		RegisterClass(&wc);
 
 		//creating window
-		_windowHandle = CreateWindowEx(0, getWindowClassName(), getWindowTitle(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+		_windowHandle = CreateWindowEx(0, getWindowClassName(), getWindowTitle(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 850, 750, NULL, NULL, hInstance, NULL);
 
 		if (_windowHandle == NULL)
 		{

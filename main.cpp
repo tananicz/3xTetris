@@ -1,4 +1,4 @@
-#include "Interfaces/IGameFactory.h"
+/*#include "Interfaces/IGameFactory.h"
 #include "Win/Win2D/headers/Win2DGameFactory.h"
 #include "Win/Win3D/headers/Win3DGameFactory.h"
 #include "Shared/headers/Game.h"
@@ -27,9 +27,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     gameFactory = nullptr;
 
     return 0;
-}
+}*/
 
-/*#include "Interfaces/IGameFactory.h"
+#include "Interfaces/IGameFactory.h"
 #include "Console2D/headers/Console2DGameFactory.h"
 #include "Shared/headers/Game.h"
 
@@ -47,4 +47,4 @@ int main()
     gameFactory = nullptr;
 
     return 0;
-}*/
+}
